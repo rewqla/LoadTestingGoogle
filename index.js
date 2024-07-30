@@ -5,13 +5,28 @@ import { check } from 'k6';
 export let options = {
   stages: [
     { duration: '30s', target: 20 }, // ramp up to 20 users
-    { duration: '1m', target: 20 },  // stay at 20 users for 1 minute
-    { duration: '30s', target: 0 },  // ramp down to 0 users
+    { duration: '20s', target: 20 },  // stay at 20 users for 20 s
+    { duration: '15s', target: 0 },  // ramp down to 0 users
   ],
 };
 
 export default function () {
-  const res = http.get('https://test.k6.io');
-  check(res, { 'status was 200': (r) => r.status === 200 });
-  sleep(1);
+    const url='https://dummyjson.com/auth/login';
+
+    const payload = JSON.stringify({
+        username: 'emilys',
+        password: 'emilyspass',
+    });
+    
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+
+    const res = http.post(url, payload, { headers: headers });
+
+    check(res, {
+      'Status is 200': (response) => response.status === 200,
+    }); 
+
+    sleep(1);
 }
