@@ -9,27 +9,30 @@ export let options = {
     { duration: '15s', target: 0 },  // ramp down to 0 users
   ],
 };
-//delete 
-//put
-//refactor into a modules
-//for 
-//some request in one time (using functions)
-//ready data 
-//random data
-//random data from ready data
-//grpc
+
+
 export default function () {
     const randomId = Math.floor(Math.random() * 195);
     const url=`https://dummyjson.com/products/${randomId}`;
 
-    const res = http.del(url);
+    const payload = JSON.stringify({
+        title: 'emily',
+        description: 'emily in france',
+        reviewerName: 'emily'
+    });
+
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+
+    const res = http.put(url, payload, { headers: headers });
     
     console.log(`Deleting product with ID: ${randomId}`);
 
     check(res, {
       'Status is 200': (response) => response.status === 200,
-      'Is deleted': (response) => JSON.parse(response.body).isDeleted === true
     }); 
 
     sleep(1);
 }
+    
