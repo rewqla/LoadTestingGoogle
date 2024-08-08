@@ -9,7 +9,7 @@ export const Login = (loginRequest) => {
 
   const loginURL = "https://dummyjson.com/auth/login";
 
-  const loginRes = http.post(loginURL, loginRequest, getHeaders);
+  const loginResponse = http.post(loginURL, loginRequest, getHeaders);
 
-  checkResponseStatus(loginRes);
+  checkResponseStatus(loginResponse, "Login");
 };
