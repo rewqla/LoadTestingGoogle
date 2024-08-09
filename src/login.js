@@ -10,6 +10,6 @@ export const Login = (loginRequest) => {
   const loginURL = "https://dummyjson.com/auth/login";
 
   const loginResponse = http.post(loginURL, loginRequest, getHeaders);
-
+  console.log(loginResponse.status)
   checkResponseStatus(loginResponse, "Login");
 };

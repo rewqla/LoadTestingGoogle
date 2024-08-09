@@ -4,6 +4,8 @@ import { Login } from "./src/login.js";
 import { Update } from "./src/update.js";
 export { options };
 
+//check if not success
+//grpc
 
 const loginRequest = JSON.parse(open("./requests/login.json"));
 const updateRequest = JSON.parse(open("./requests/update.json"));
