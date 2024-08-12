@@ -1,24 +1,21 @@
-import { Client, StatusOK } from "k6/net/grpc";
-import { check, sleep } from 'k6';
+import { BidiHello } from "./gRPC/BidiHello.js";
+import { LotsOfReplies } from "./gRPC/LotsOfReplies.js";
+import { SayHello } from "./gRPC/SayHello.js";
 
-const client = new Client();
-client.load(["definitions"], "../specs/hello.proto");
+
 
 export const Hello = () => {
-  client.connect("localhost:9000", { plaintext: true });
-
-  const data = { greeting: "Bert" };
-  const response = client.invoke("hello.HelloService/SayHello", data);
-
-  check(response, {
-    "status is OK": (r) => r && r.status === StatusOK,
-  });
-
-  console.log(JSON.stringify(response.message));
-
-  client.close();
-  sleep(1);
+    BidiHello();
+    // LotsOfReplies();  -- FIX
+    // SayHello();
 };
+
+
+//streams request
+// request streams
+// stream stream
+//errors
+
 
 //------------------------------------
 //docker pull grafana/k6-grpcbin
